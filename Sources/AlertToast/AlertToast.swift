@@ -193,6 +193,9 @@ public struct AlertToast: View{
     ///The title of the alert (`Optional(String)`)
     public var title: String? = nil
     
+    ///The title of the alert (`Optional(CGFloat)`)
+    public var maxWidth: CGFloat? = nil
+    
     ///The subtitle of the alert (`Optional(String)`)
     public var subTitle: String? = nil
     
@@ -202,12 +205,14 @@ public struct AlertToast: View{
     ///Full init
     public init(displayMode: DisplayMode = .alert,
                 type: AlertType,
+                maxWidth: CGFloat? = nil,
                 title: String? = nil,
                 subTitle: String? = nil,
                 style: AlertStyle? = nil){
         
         self.displayMode = displayMode
         self.type = type
+        self.maxWidth = maxWidth
         self.title = title
         self.subTitle = subTitle
         self.style = style
@@ -263,7 +268,7 @@ public struct AlertToast: View{
             .multilineTextAlignment(.leading)
             .textColor(style?.titleColor ?? nil)
             .padding()
-            .frame(maxWidth: 400, alignment: .leading)
+            .frame(maxWidth: maxWidth, alignment: .leading)
             .alertBackground(style?.backgroundColor ?? nil)
             .cornerRadius(10)
             .padding([.horizontal, .bottom])
@@ -317,7 +322,7 @@ public struct AlertToast: View{
             }
             .padding(.horizontal, 24)
             .padding(.vertical, 8)
-            .frame(minHeight: 50)
+            .frame(maxWidth: maxWidth, minHeight: 50)
             .alertBackground(style?.backgroundColor ?? nil)
             .clipShape(Capsule())
             .overlay(Capsule().stroke(Color.gray.opacity(0.2), lineWidth: 1))
